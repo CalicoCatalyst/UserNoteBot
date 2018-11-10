@@ -4,15 +4,29 @@ Python bot using [PRAW](https://github.com/praw-dev/praw) to interact with [tool
 
 ### Usage
 
-As a moderator of a sub, report a submission/comment for "!flag <warning> <note>"  
-  
-  Warnings: "abusewarn","none","botban",null,"ban","gooduser","spamwatch","permban","spamwarn","shadow_ban","toxic","piracy"
-  
-  If the text isn't one of these the bot will get mad at you. 
-  
-This bot will only work if the user submitting a note has already submit one in the past. Make sure you do that. 
+As a moderator of a sub, report a submission/comment with the custom text:
 
-### Configuration
+    !flag <warning> <note>
+  
+Warnings:
+
+Keyword | Usernote category
+--- | ---
+gooduser | Good Contributor
+spamwatch | Spam Watch
+spamwarn | Spam Warning
+toxic | Warning	Toxic
+piracy | Piracy
+ban | Ban
+permban | Permanent Ban
+shadow_ban | Shadow Ban
+null | No category
+
+If the warning doesn't match one of the above, the bot will not work.
+
+**Notice**: The submitting moderator must have previously created a toolbox usernote through the desktop extension before the bot will work. 
+
+### Bot Configuration
 
 1. Open config.ini in a text editor
 Open https://old.reddit.com/prefs/apps
@@ -27,4 +41,4 @@ Open https://old.reddit.com/prefs/apps
 
 ### PYTBUN.py
 
-This class is a custom library I've coded specifically for handling UserNote modifications. It can be used seperately from jbbot.py in any project.
+This class is a custom library I've coded specifically for handling UserNote modifications. It can be used indepenently from jbbot.py in any project.
