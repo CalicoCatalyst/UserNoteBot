@@ -1,31 +1,24 @@
 # pytbun v0 by /u/Insxnity
 # Interface for working with Reddit Mod Toolbox Usernotes v6 over PRAW.
-# Would not have been possible without /u/sjrsimac @ https://www.reddit.com/r/RequestABot/comments/6xhfmk/would_like_a_bot_to_monitor_the_various_free/dmvk8xp/
+# Would not have been possible without /u/sjrsimac
+#    https://www.reddit.com/r/RequestABot/comments/6xhfmk/would_like_a_bot_to_monitor_the_various_free/dmvk8xp/
 import praw
 import zlib
 import base64
 import json
 import time
 
-
-
 def getModeratorIndex(r,sub,mod):
-    # Not conditioned to deal with a mod that doesn't exist. Probably should figure that out before a public source release
+    # TODO Handle more gracefully when a mod doesn't exist in the usernotes
     return PullandUnzipUsernotes(r,sub)[0]['constants']['users'].index(mod)
 
 def getWarningIndex(r,sub,warning):
     # Not conditioned to deal with a warning bla bla bla ^^^
     return PullandUnzipUsernotes(r,sub)[0]['constants']['warnings'].index(warning)
 
-
-
-# huge thanks to /u/sjrsimac for posting any code below this comment
-
-
-
+# Huge thanks to /u/sjrsimac for the below code
 
 def makeNewNote(blob, redditor, notetext, moderatornumber, link, warningNumber):
-    
     newnote = {
     'n':notetext, # The displayed note.
     't':int(time.time()), # The time the note is made.
@@ -41,14 +34,19 @@ def makeNewNote(blob, redditor, notetext, moderatornumber, link, warningNumber):
     return blob
 
 def PullandUnzipUsernotes(reddit, OurSubreddit):
-    allusernotes = json.loads(reddit.subreddit(OurSubreddit).wiki['usernotes'].content_md) # Extracts the whole usernotes page and turns it into a dictionary.
-    blob = base64.b64decode(allusernotes['blob']) # Focuses our attention on the blob in the usernotes and converts the base64 number into a binary (base2) number.
-    blob = zlib.decompress(blob).decode() # Converts that binary number into a string.
-    blob = json.loads(blob) # Converts that string into a dictionary.
-    print(blob) # This prints the usernotes dictionary in human readable form.
+    # Extract the whole usernotes page and turns it into a dictionary.
+    allusernotes = json.loads(reddit.subreddit(OurSubreddit).wiki['usernotes'].content_md)
+    # Get the blob in the usernotes and convert the base64 number into a binary (base2) number.
+    blob = base64.b64decode(allusernotes['blob'])
+    # Convert the blob binary number into a string.
+    blob = zlib.decompress(blob).decode()
+    # Convert blob string into a dictionary.
+    blob = json.loads(blob)
+    
+    # Print the blob in a user readable form.
+    # print(blob)
     
     return [allusernotes, blob]
-
 
 def CompileandZipUsernotes(reddit, allusernotes, blob, ourSubreddit):
     # This is the debugging code. Disable or delete this when you're done debugging.
@@ -62,5 +60,3 @@ def CompileandZipUsernotes(reddit, allusernotes, blob, ourSubreddit):
     allusernotes['blob'] = str(rewrittenblob)
     allusernotes = json.dumps(allusernotes)
     reddit.subreddit(ourSubreddit).wiki['usernotes'].edit(allusernotes)
-
-
