@@ -30,7 +30,7 @@ def saveNewNote(user, note, mod, warn):
         r,
         PullandUnzipUsernotes(r, sub)[0],
             makeNewNote(PullandUnzipUsernotes(r, sub)[1],user,note,getModeratorIndex(r,sub,mod),'',getWarningIndex(r,sub,warn)),
-        "Monstercat")
+        sub)
 
 # Workaround for streaming EVERYTHING from the sub
 def submissions_and_comments(subreddit, **kwargs):
@@ -53,7 +53,7 @@ if __name__ == "__main__":
                     if (report[1]!='AutoModerator'):
                         # ignore automod reports for general sub modularity
                         # replace the above condition with true to not ignore AutoMod
-                        print("Poster: {}".format(item.author.name))
+                        # Debug print("Poster: {}".format(item.author.name))
 
                         # Mod Reports: [['!flag gooduser Good Contributor', 'Insxnity']]
 
