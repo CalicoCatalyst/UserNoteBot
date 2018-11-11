@@ -1,4 +1,3 @@
-# r/jailbreak bot
 # checks submission items for reports, downloads usernotes from /wiki/usernotes
 # decompresses the ugly blob from there, modifies it with whatever the report
 # was for the user, and saves it back.
@@ -54,7 +53,6 @@ if __name__ == "__main__":
                     if (report[1]!='AutoModerator'):
                         # ignore automod reports for general sub modularity
                         # replace the above condition with true to not ignore AutoMod
-                        print('just work pls')
                         print("Poster: {}".format(item.author.name))
 
                         # Mod Reports: [['!flag gooduser Good Contributor', 'Insxnity']]
