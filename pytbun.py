@@ -9,12 +9,24 @@ import json
 import time
 
 def getModeratorIndex(r,sub,mod):
-    # TODO Handle more gracefully when a mod doesn't exist in the usernotes
-    return PullandUnzipUsernotes(r,sub)[0]['constants']['users'].index(mod)
+    try:
+        x = PullandUnzipUsernotes(r,sub)[0]['constants']['users'].index(mod)
+        return x
+    except ValueError:
+        all_usernotes = PullandUnzipUsernotes(r,sub)
+        # If there are no mods, place the mod into the list
+        all_usernotes[0]['constants']['users'][0] = mod
+        # Write that to the usernote file before we do anything else in the program
+        CompileandZipUsernotes(r, all_usernotes, all_usernotes[1], sub):
+        # Since the mod will be the first in the list, we can return 0 instead of
+        #     Calling the function again, which could create a memory leak if something went very wrong.
+        return 0
 
 def getWarningIndex(r,sub,warning):
     # Not conditioned to deal with a warning bla bla bla ^^^
-    return PullandUnzipUsernotes(r,sub)[0]['constants']['warnings'].index(warning)
+	thing_list = PullandUnzipUsernotes(r,sub)[0]['constants']['warnings']
+	val = thing_list.index(warning) if warning in thing_list else 3
+    return val
 
 # Huge thanks to /u/sjrsimac for the below code
 
