@@ -2,6 +2,11 @@
 
 Python bot using [PRAW](https://github.com/praw-dev/praw) to interact with [toolbox for reddit's](https://www.reddit.com/r/toolbox/) UserNote system, and more specifically, to allow saving of usernotes with custom reports
 
+### Requirements
+
+* PRAW Version 6.0.0  
+* Program is python 2/3 compatible. 
+
 ### Running the bot
 
 The bot has two "modes" it can run in. It can be told to run once and exit, or to run indefinitely with a default loop, or "check" time. This can also be set
