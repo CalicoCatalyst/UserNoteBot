@@ -77,6 +77,18 @@ def check_reports_for_flags():
                         usernote = reportCMD[2]
                         warning = reportCMD[1]
                         
+                        # No warning handling
+                        if getWarningIndex(r, sub, warning) == 3:
+                            reportCMD = message.split(' ', 1)
+                            
+                            usernote = reportCMD[1]
+                            # Does not exist and shouldn't ever, here only for code clarity and 
+                            #     to throw the null warning trigger in pytbun. 
+                            # This variable can be anything as long as that thing is not an actual warning
+                            # Alternatively, you can configure a special warning here that is chosen
+                            #     when one is not provided.
+                            warning = "nullwarning" 
+                        
                         reportInfo = [user,usernote,reporter,warning]
                         # Lets not add 1000 of the same usernote
                         item.mod.ignore_reports()
