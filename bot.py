@@ -154,7 +154,7 @@ class UserNoteHandler(object):
         try:
             blob[redditor]['ns'] = [newnote] + blob[redditor]['ns']
         except Exception as ex:
-            logging.debug("Exception was hit when making new note:" + ex.__str__())
+            logging.debug("Exception was hit when making new note:" + str(ex))
             blob[redditor] = {'ns': list()}
             blob[redditor]['ns'] = [newnote]
         return blob
@@ -190,8 +190,12 @@ class UserNoteHandler(object):
         # noinspection PyBroadException
         try:
             reddit.subreddit(our_subreddit).wiki['usernotes'].edit(allusernotes)
-        except Exception:
+        except Forbidden:
             logging.critical("Authenticated Account does not have permission to edit wiki for /r/%s. Exiting." % sub)
+            exit(1)
+        except Exception as ex:
+            logging.critical("Exception encountered while uploading usernotes: %s" % str(ex))
+            exit(1)
 
 
 def main():
