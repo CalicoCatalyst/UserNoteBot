@@ -9,21 +9,33 @@ Python bot using [PRAW](https://github.com/praw-dev/praw) to interact with [tool
 
 ### Running the bot
 
-The bot has two "modes" it can run in. It can be told to run once and exit, or to run indefinitely with a default loop, or "check" time. This can also be set
+If you want the bot to run continuously, pass a loop time via `[-w <time>]`
 
-The command line syntax is:
+Running `python bot.py -h` yields:
 
-    python bot.py --watch [seconds]
-    
-    # To run once
-    python bot.py
-    
-    # To run in a loop with default time of 30 seconds
-    python bot.py --watch
-    
-    # To run in a loop, checking every two minutes instead
-    python bot.py --watch 120
+    usage: bot.py [-h] [-w WATCH] [-d]
+                  [-c CREDENTIALS CREDENTIALS CREDENTIALS CREDENTIALS]
 
+    Bot to check reports for mod initiated commands and create usernotes
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      -w WATCH, --watch WATCH
+                            Specify a time for the bot to loop in seconds
+      -d, --debug           Enable Debug Logging
+      -c CREDENTIALS CREDENTIALS CREDENTIALS CREDENTIALS, --credentials CREDENTIALS CREDENTIALS CREDENTIALS CREDENTIALS
+                            Specify oauth credentials on command line
+
+##### -C flag
+
+`-c` flag should only be used for testing/debug. Specify your oauth credentials in `oauth.ini`
+
+if you insist on using -c to specify credentials via CLI, syntax is `-c public_key private_key username password`
+
+If the program throws an IndexError, try wrapping these arguemnts in quotes like so:
+`-c 'public_key' 'private_key' 'username' 'password'`
+
+I would only reccomend using this flag if you know what you're doing
 ### Usage
 
 As a moderator of a sub, report a submission/comment with the custom text:
@@ -51,7 +63,7 @@ If the warning doesn't match one of the above, the bot will not work.
 ### Bot Configuration
 
 ##### Note: Do not use quotation marks in config.ini. The program will not run properly if this is done.
-1. Open config.ini in a text editor
+1. Open `oauth.ini` in a text editor
 Open https://old.reddit.com/prefs/apps
 
 2. Create an app if you haven't already
@@ -60,8 +72,4 @@ Open https://old.reddit.com/prefs/apps
 
 4. In config.ini, enter the subreddit you would like the bot to monitor
 
-5. Run jbbot.py
-
-### PYTBUN.py
-
-This class is a custom library I've coded specifically for handling UserNote modifications. It can be used indepenently from jbbot.py in any project.
+5. Run `bot.py`
